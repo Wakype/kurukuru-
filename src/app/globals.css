@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/intro-book-alt');
+@import url('https://fonts.cdnfonts.com/css/poppins');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,7 +17,18 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
+* {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  /* outline: red dashed 1px; */
+  font-family: 'Poppins', sans-serif;
+}
+h1,
+.h1 {
+  font-family: 'Intro Demo', sans-serif !important;
+}
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,4 +37,28 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-800%);
+  }
+}
+
+.slide-from-right {
+  animation: slideFromRight 5s ease-in-out forwards !important;
+}
+
+.glass {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px);
+}
+.glass:hover {
+  background: rgba(255, 255, 255, 0.412);
 }
