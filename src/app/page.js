@@ -91,7 +91,7 @@ export default function Home() {
     onOpenModal1();
   }, []);
   return (
-    <div className="w-screen h-screen bg-[#51308d] flex flex-col justify-between relative">
+    <div className="w-screen h-screen bg-[#51308d] flex flex-col justify-between relative overflow-hidden">
       <Modal onClose={onCloseModal1} isOpen={isOpenModal1} isCentered>
         <ModalOverlay />
         <ModalContent className="bg-[#833bdb]">
@@ -177,14 +177,14 @@ export default function Home() {
         </section>
 
         <div className="flex flex-col items-center mb-10">
-          <h1 className="text-[40px]">
+          <h1 className="text-[30px]">
             Greetings{' '}
             <span className="underline h1 underline-offset-4 italic">
               trailblazer
             </span>{' '}
             !!!
           </h1>
-          <p className="text-[20px]">
+          <p className="text-[15px]">
             Dive into the world of Herta, the irresistibly cute and
             exceptionally gifted character from Honkai: Star Rail.
           </p>
@@ -192,7 +192,7 @@ export default function Home() {
         <div className="flex items-center space-x-10">
           <button
             onClick={play}
-            className="h1 rounded-lg bg-[#833bdb] py-3 w-[60%] hover:shadow-xl shadow-[#833bdb] hover:bg-[#411f73] hover:-translate-y-1"
+            className="h1 rounded-lg bg-[#833bdb] py-2 w-[50%] hover:shadow-xl shadow-[#833bdb] hover:bg-[#411f73] hover:-translate-y-1"
           >
             ... squish herta ...
           </button>
@@ -204,7 +204,7 @@ export default function Home() {
           ></Image>
           <button
             onClick={play}
-            className="h1 rounded-lg bg-[#833bdb] py-3 w-[60%] hover:shadow-xl shadow-[#833bdb] hover:bg-[#411f73] hover:-translate-y-1"
+            className="h1 rounded-lg bg-[#833bdb] py-2 w-[50%] hover:shadow-xl shadow-[#833bdb] hover:bg-[#411f73] hover:-translate-y-1"
           >
             ... squish herta ...
           </button>
@@ -235,8 +235,8 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="bg-transparent absolute z-0 right-0 bottom-0">
-        <div className="w-[300px] h-[300px]">
+      <section className="bg-transparent absolute z-0 right-0 bottom-0 overflow-visible">
+        <div className="w-[300px] h-[300px] overflow-visible">
           {images.map((image, i) => {
             setTimeout(() => {
               // setImages((prevImages) => prevImages.slice(1));
@@ -246,7 +246,7 @@ export default function Home() {
             }, 5000); // Delay sebelum menghapus gambar dalam milidetik
 
             return (
-              <div key={i} className="slide-from-right">
+              <div key={i} className="slide-from-right overflow-visible">
                 {image}
               </div>
             );
