@@ -1,4 +1,8 @@
-import './globals.css'
+'use client';
+
+import './globals.css';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Providers } from './providers';
 // import { Inter } from 'next/font/google'
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -11,7 +15,9 @@ import './globals.css'
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={''}>{children}</body>
+      <body className={''}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
-  )
+  );
 }

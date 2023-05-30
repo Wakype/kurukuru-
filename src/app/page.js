@@ -5,18 +5,30 @@ import kururin from '../assets/images/kururin.gif';
 import herta from '../assets/images/herta.gif';
 import kurukuruSound from '../assets/sound/kurukuru.mp3';
 import kururingSound from '../assets/sound/kururing.mp3';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiFillGithub, AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import { FaTiktok, FaInfoCircle } from 'react-icons/fa';
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+} from '@chakra-ui/react';
 import { BiNews } from 'react-icons/bi';
 
 export default function Home() {
   const [isClick, setIsClick] = useState(false);
   const [count, setCount] = useState(0);
   const [images, setImages] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const info = [
-    { icon: <BiNews size={20} />, onClick: '' },
+    { icon: <BiNews size={20} />, onClick: onOpen() },
     { icon: <FaInfoCircle size={20} />, onClick: '' },
   ];
   const social = [
@@ -63,8 +75,25 @@ export default function Home() {
     return audio.play();
   };
 
+  useEffect(() => {
+    onOpen();
+  }, []);
   return (
     <div className="w-screen h-screen bg-[#51308d] flex flex-col justify-between relative">
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent className="bg-[#833bdb]">
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p>lroem</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
       <div className="mix-blend-multiply">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 150">
           <path
@@ -92,7 +121,7 @@ export default function Home() {
         <section className="absolute left-5 top-[180px] flex flex-col justify-center space-y-3">
           {info.map((_, i) => {
             return (
-              <div key={i} className="rounded-lg p-2 glass cursor-pointer">
+              <div key={i} className="rounded-lg p-2 glass cursor-pointer" onClick={() => _.onClick}>
                 {_.icon}
               </div>
             );
@@ -154,7 +183,7 @@ export default function Home() {
         </svg>
 
         <div className="absolute bottom-3 h1 w-full flex justify-center z-50">
-          <p className='h1 text-[13px]'>Proudly made in 🇮🇩 by Wakype</p>
+          <p className="h1 text-[13px]">Proudly made in 🇮🇩 by Wakype</p>
         </div>
       </div>
 
