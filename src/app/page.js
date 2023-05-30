@@ -18,6 +18,9 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  UnorderedList,
+  ListItem,
+  OrderedList,
 } from '@chakra-ui/react';
 import { BiNews } from 'react-icons/bi';
 
@@ -25,11 +28,20 @@ export default function Home() {
   const [isClick, setIsClick] = useState(false);
   const [count, setCount] = useState(0);
   const [images, setImages] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenModal1,
+    onOpen: onOpenModal1,
+    onClose: onCloseModal1,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenModal2,
+    onOpen: onOpenModal2,
+    onClose: onCloseModal2,
+  } = useDisclosure();
 
   const info = [
-    { icon: <BiNews size={20} />, onClick: onOpen() },
-    { icon: <FaInfoCircle size={20} />, onClick: '' },
+    { icon: <BiNews size={20} />, onClick: onOpenModal1 },
+    { icon: <FaInfoCircle size={20} />, onClick: onOpenModal2 },
   ];
   const social = [
     { icon: <AiFillGithub size={20} />, link: 'https://github.com/Wakype' },
@@ -76,20 +88,52 @@ export default function Home() {
   };
 
   useEffect(() => {
-    onOpen();
+    onOpenModal1();
   }, []);
   return (
     <div className="w-screen h-screen bg-[#51308d] flex flex-col justify-between relative">
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal onClose={onCloseModal1} isOpen={isOpenModal1} isCentered>
         <ModalOverlay />
         <ModalContent className="bg-[#833bdb]">
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>UPDATE LOG</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <p>lroem</p>
+            <UnorderedList>
+              <ListItem className="font-bold text-[20px]">v1.0</ListItem>
+              <OrderedList>
+                <ListItem>
+                  Web still on development (will be another update incoming 🤔)
+                </ListItem>
+                <ListItem>
+                  If spam the squish button the herta will broken, the function
+                  its kinda buggy (ill fix it soon 👀)
+                </ListItem>
+                <ListItem>Soon ill add country and leaderboard 😎</ListItem>
+              </OrderedList>
+            </UnorderedList>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Button colorScheme="facebook" onClick={onCloseModal1}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal onClose={onCloseModal2} isOpen={isOpenModal2} isCentered>
+        <ModalOverlay />
+        <ModalContent className="bg-[#833bdb]">
+          <ModalHeader>ABOUT THIS WEB</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <p>this web just for waste my time, idk why, but i like it lmao</p>
+          <p>Herta is character from Honkai Star Rail</p>
+          </ModalBody>
+          <ModalFooter>
+            <p className="text-left mr-10">All rights® are belong to HOYOVERSE</p>
+            <Button colorScheme="facebook" onClick={onCloseModal2}>
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -121,7 +165,11 @@ export default function Home() {
         <section className="absolute left-5 top-[180px] flex flex-col justify-center space-y-3">
           {info.map((_, i) => {
             return (
-              <div key={i} className="rounded-lg p-2 glass cursor-pointer" onClick={() => _.onClick}>
+              <div
+                key={i}
+                className="rounded-lg p-2 glass cursor-pointer"
+                onClick={_.onClick}
+              >
                 {_.icon}
               </div>
             );
