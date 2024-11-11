@@ -1,5 +1,5 @@
-@import url('https://fonts.cdnfonts.com/css/intro-book-alt');
-@import url('https://fonts.cdnfonts.com/css/poppins');
+@import url("https://fonts.cdnfonts.com/css/intro-book-alt");
+@import url("https://fonts.cdnfonts.com/css/poppins");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,11 +25,11 @@
   color: white;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   /* outline: red dashed 1px; */
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 h1,
 .h1 {
-  font-family: 'Intro Demo', sans-serif !important;
+  font-family: "Intro Demo", sans-serif !important;
 }
 body {
   color: rgb(var(--foreground-rgb));
@@ -63,4 +63,27 @@ body {
 }
 .glass:hover {
   background: rgba(255, 255, 255, 0.412);
+}
+
+@keyframes slideFromRightBottom {
+  0% {
+    transform: translate(100vw, 0);
+    bottom: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100vw, 0);
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+.herta-slide {
+  animation: slideFromRightBottom linear forwards;
 }
