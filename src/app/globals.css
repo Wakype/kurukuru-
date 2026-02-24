@@ -1,89 +1,270 @@
-@import url("https://fonts.cdnfonts.com/css/intro-book-alt");
-@import url("https://fonts.cdnfonts.com/css/poppins");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+
+  /* Base variables for tech/space theme */
+  --space-dark: #050b14;
+  --hud-fuchsia: #d946ef;
+  --hud-fuchsia-dim: rgba(217, 70, 239, 0.2);
+  --hud-purple: #b026ff;
+  --hud-purple-dim: rgba(176, 38, 255, 0.2);
+
+  --animate-pulse-hud: pulse-hud 3s ease-in-out infinite;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-squish: squish 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  --animate-fly-herta: fly-herta ease-out forwards;
+
+  /* Tell Tailwind v4 to generate color utilities from your custom variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Using curated Dark Deep Space / Purple OKLCH Theme */
+  --background: oklch(0.15 0.05 300);
+  --foreground: oklch(0.98 0.01 300);
+
+  --card: oklch(0.2 0.05 300);
+  --card-foreground: oklch(0.98 0.01 300);
+
+  --popover: oklch(0.2 0.05 300);
+  --popover-foreground: oklch(0.98 0.01 300);
+
+  --primary: oklch(0.65 0.25 300);
+  --primary-foreground: oklch(0.98 0.01 300);
+
+  --secondary: oklch(0.3 0.1 300);
+  --secondary-foreground: oklch(0.98 0.01 300);
+
+  --muted: oklch(0.25 0.05 300);
+  --muted-foreground: oklch(0.75 0.05 300);
+
+  --accent: oklch(0.35 0.15 300);
+  --accent-foreground: oklch(0.98 0.01 300);
+
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0.01 300);
+
+  --border: oklch(0.35 0.1 300);
+  --input: oklch(0.25 0.05 300);
+  --ring: oklch(0.65 0.25 300);
+
+  --radius: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .outfit-font {
+    @apply font-outfit;
   }
 }
-* {
-  transition-property: all;
-  overflow: hidden;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-  color: white;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  /* outline: red dashed 1px; */
-  font-family: "Poppins", sans-serif;
-}
-h1,
-.h1 {
-  font-family: "Intro Demo", sans-serif !important;
-}
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+
+@layer utilities {
+  .space-bg {
+    background-color: var(--space-dark);
+    background-image:
+      radial-gradient(
+        circle at 15% 50%,
+        var(--hud-purple-dim),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 85% 30%,
+        var(--hud-fuchsia-dim),
+        transparent 25%
+      );
+  }
+
+  .grid-overlay {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(217, 70, 239, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(217, 70, 239, 0.05) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+
+  .hud-panel {
+    background: rgba(5, 11, 20, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--hud-fuchsia-dim);
+    box-shadow: inset 0 0 20px rgba(217, 70, 239, 0.05);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 20px),
+      calc(100% - 20px) 100%,
+      0 100%
+    );
+  }
+
+  .hud-panel-alt {
+    background: rgba(5, 11, 20, 0.4);
+    backdrop-filter: blur(6px);
+    border-left: 2px solid var(--hud-purple);
+  }
+
+  .hud-text {
+    text-shadow: 0 0 8px var(--hud-fuchsia);
+    color: #e0f8ff;
+  }
+
+  .hud-button {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--hud-fuchsia);
+    color: var(--hud-fuchsia);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .hud-button:hover {
+    background: var(--hud-fuchsia-dim);
+    box-shadow: 0 0 15px var(--hud-fuchsia-dim);
+    text-shadow: 0 0 5px var(--hud-fuchsia);
+  }
+
+  .hud-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@keyframes slideFromRight {
-  from {
-    transform: translateX(100%);
+      rgba(217, 70, 239, 0.4),
+      transparent
+    );
+    transition: all 0.4s;
   }
-  to {
-    transform: translateX(-800%);
+
+  .hud-button:hover::before {
+    left: 100%;
+  }
+
+  .squish-effect {
+    animation: squish 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .herta-fly {
+    animation-name: fly-herta;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
   }
 }
 
-.slide-from-right {
-  animation: slideFromRight 5s ease-in-out forwards !important;
-}
-
-.glass {
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px);
-}
-.glass:hover {
-  background: rgba(255, 255, 255, 0.412);
-}
-
-@keyframes slideFromRightBottom {
+@keyframes scanline {
   0% {
-    transform: translate(100vw, 0);
-    bottom: 0;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
+    transform: translateY(-100%);
   }
   100% {
-    transform: translate(-100vw, 0);
-    bottom: 0;
-    opacity: 0;
+    transform: translateY(100vh);
   }
 }
 
-.herta-slide {
-  animation: slideFromRightBottom linear forwards;
+@keyframes pulse-hud {
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px var(--hud-fuchsia-dim));
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 20px var(--hud-fuchsia));
+  }
+}
+
+@keyframes squish {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.3, 0.7) translateY(10px);
+  }
+  50% {
+    transform: scale(0.8, 1.2) translateY(-20px);
+  }
+  75% {
+    transform: scale(1.15, 0.85) translateY(5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes fly-herta {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+    transform: translate(calc(var(--x-end) * 0.15), calc(var(--y-end) * 0.15))
+      rotate(72deg) scale(1);
+  }
+  85% {
+    opacity: 0.9;
+    transform: translate(calc(var(--x-end) * 0.85), calc(var(--y-end) * 0.85))
+      rotate(648deg) scale(1);
+  }
+  100% {
+    transform: translate(var(--x-end), var(--y-end)) rotate(720deg) scale(0);
+    opacity: 0;
+  }
 }
